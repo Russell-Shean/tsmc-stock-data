@@ -53,3 +53,5 @@ institutional_buy_and_sell = api.taiwan_stock_institutional_investors(
 
 
 institutional_buy_and_sell.to_csv('data/tsmc/institutional_buy_and_sell.csv', index=False)
+
+
