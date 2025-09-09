@@ -28,7 +28,17 @@ tsm_daily_close  = api.taiwan_stock_daily(
 )
 
 
-tsm_daily_close.to_csv('data/tsmc/closing_price.csv', index=False)
+tsm_daily_close.to_csv('data/tsmc/daily_closing_price.csv', index=False)
+
+# Download daily closing price data ----------------------------------------------------------------------------------------------
+tsm_daily_close  = api.taiwan_stock_monthly(
+                  stock_id=stock_id,
+                   start_date=start_date,
+                   end_date=end_date
+)
+
+
+tsm_daily_close.to_csv('data/tsmc/monthly_closing_price.csv', index=False)
 
 
 # Monthly revenue -----------------------------------------------------------------------------------------------------------------------
@@ -55,3 +65,4 @@ institutional_buy_and_sell = api.taiwan_stock_institutional_investors(
 institutional_buy_and_sell.to_csv('data/tsmc/institutional_buy_and_sell.csv', index=False)
 
 
+# 
