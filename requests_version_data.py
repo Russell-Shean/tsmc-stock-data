@@ -14,7 +14,13 @@ def get_data_requests(base_url, endpoint, output_file, filter_column = None, fil
     
     try:
         # Send GET request
-        response = requests.get(url)
+        # If the request is to TWSE, use their SSL certificates
+        if base_url == "https://openapi.twse.com.tw/v1":
+            response = requests.get(url,
+                                verify="./API_SSL_CERTS/openapi-twse-com-tw-chain.pem")
+        else:
+            response = requests.get(url)
+
         
         
         # Check if the request was successful
@@ -74,3 +80,23 @@ get_data_requests(base_url = "https://openapi.twse.com.tw/v1",
                   filter_column="公司名稱tw",
                   filter_value="台積電",
                   output_file="data/tsmc/gross_margin_quarterly.csv")
+
+
+
+# 營收公布日期和數據	Monthly revenue announcement date and figures
+get_data_requests(base_url = "https://openapi.twse.com.tw/v1", 
+                  endpoint = "/opendata/t187ap05_P",
+                  #filter_column="公司名稱",
+                  #filter_value="台積電",
+                  output_file="data/tsmc/monthly_revenue_announcement.csv")
+
+
+
+# 本益比/殖利率/股價淨值比	PE/Yield rate/PB ratio
+get_data_requests(base_url = "https://openapi.twse.com.tw/v1", 
+                  endpoint = "/exchangeReport/BWIBBU_ALL",
+                  filter_column="Name",
+                  filter_value="台積電",
+                  output_file="data/tsmc/PE_YR_PB.csv")
+
+
