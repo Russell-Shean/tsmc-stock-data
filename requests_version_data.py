@@ -71,6 +71,6 @@ get_data_requests(base_url = "https://openapi.twse.com.tw/v1",
 # Quartly gross margin
 get_data_requests(base_url = "https://openapi.twse.com.tw/v1", 
                   endpoint = "/opendata/t187ap17_L",
-                  filter_column="公司名稱",
+                  filter_column="公司名稱tw",
                   filter_value="台積電",
                   output_file="data/tsmc/gross_margin_quarterly.csv")
