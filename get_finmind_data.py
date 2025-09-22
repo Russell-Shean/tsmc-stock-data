@@ -211,3 +211,97 @@ taiwan_stock_monthly = api.taiwan_stock_monthly(
 )
 
 taiwan_stock_monthly.to_csv('data/tsmc/taiwan_stock_monthly.csv', index=False)
+
+
+##  期貨三大法人買賣 TaiwanFuturesInstitutionalInvestors
+taiwan_futures_institutional_investors = api.taiwan_futures_institutional_investors(
+     #stock_id=stock_id,
+    start_date=start_date,
+    end_date=end_date
+
+)
+
+taiwan_futures_institutional_investors.to_csv('data/tsmc/taiwan_futures_institutional_investors.csv', index=False)
+
+
+
+## NEw stuff 
+
+
+## 期貨日成交資訊 TaiwanFuturesDaily
+taiwan_futures_daily = api.taiwan_futures_daily(
+    #futures_id='CDF',
+    start_date='2020-04-01',
+    end_date='2020-04-12',
+)
+
+
+
+print(taiwan_futures_daily)
+
+taiwan_futures_daily.to_csv('data/tsmc/taiwan_futures_daily.csv', index=False)
+
+
+## 法人買賣表 TaiwanStockInstitutionalInvestorsBuySell
+
+
+taiwan_stock_institutional_investors = api.taiwan_stock_institutional_investors(
+    stock_id="2330",
+    start_date=start_date,
+    end_date=end_date,
+)
+
+
+
+print(taiwan_stock_institutional_investors)
+
+taiwan_stock_institutional_investors.to_csv('data/tsmc/tsmc_taiwan_stock_institutional_investors.csv', index=False)
+
+
+## 加權指數 TaiwanVariousIndicators5Seconds
+
+
+tse = api.tse(
+   date="2025-09-19"
+)
+
+
+
+print(tse)
+
+tse.to_csv('data/tsmc/tse.csv', index=False)
+
+
+## 台股月 K 資料表 TaiwanStockMonthPrice
+
+# filter for TAIEX
+# and Semiconductor
+
+
+taiwan_stock_monthly = api.taiwan_stock_monthly(
+    #stock_id='2330',
+    start_date=start_date,
+    end_date=end_date
+)
+
+
+
+print(taiwan_stock_monthly)
+
+taiwan_stock_monthly.to_csv('data/tsmc/taiwan_stock_monthly.csv', index=False)
+
+##當日沖銷交易標的及成交量值 TaiwanStockDayTrading
+
+
+taiwan_stock_day_trading = api.taiwan_stock_day_trading(
+    stock_id='2330',
+    start_date=start_date,
+    end_date=end_date
+)
+
+
+
+print(taiwan_stock_day_trading)
+
+taiwan_stock_day_trading.to_csv('data/tsmc/taiwan_stock_day_trading.csv', index=False)
+

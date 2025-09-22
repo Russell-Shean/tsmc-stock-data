@@ -1,1 +1,2 @@
-
+stock_id,yweek,max,min,trading_volume,trading_money,trading_turnover,date,close,open,spread
+2330,2020W15,288.0,270.0,409564428,114799189198,188964,2020-04-06,279.5,273.0,8.0
