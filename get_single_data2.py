@@ -1,9 +1,3 @@
-## 台股月 K 資料表 TaiwanStockMonthPrice
-
-# filter for TAIEX
-# and Semiconductor
-
-
 import datetime
 
 from FinMind.data import DataLoader
@@ -35,7 +29,8 @@ stock_id = "2330"
 # Define time range (last 10 years)
 end_date = datetime.date.today()
 
-start_date = datetime.date(2016, 1, 1)
+# This data only starts from 2018-06-05 
+start_date = datetime.date(2018, 7, 7)
 
 
 start_date=start_date.strftime("%Y-%m-%d")
@@ -48,16 +43,56 @@ date_range = pd.date_range(start=start_date, end=end_date, freq="D")
 # convert to strings
 dates = [d.strftime("%Y-%m-%d") for d in date_range]
 
-##  期貨三大法人買賣 TaiwanFuturesInstitutionalInvestors
-taiwan_futures_institutional_investors = api.taiwan_futures_institutional_investors(
-     #stock_id=stock_id,
-    start_date="2018-06-05",
-    end_date=end_date
 
-)
 
-print(taiwan_futures_institutional_investors)
+# create a blank dataframe to add to
+# Start with an empty DataFrame
+taiwan_futures_institutional_investors = pd.DataFrame({
+    "futures_id": pd.Series(dtype="string"),
+    "date":pd.Series(dtype="datetime64[ns]"),  # dates like 2016-01-04
+    "institutional_investors": pd.Series(dtype="string"),
+    "long_deal_volume": pd.Series(dtype="float64"),
+    "long_deal_amount": pd.Series(dtype="float64"),
+    "short_deal_volume": pd.Series(dtype="float64"),
+    "short_deal_amount": pd.Series(dtype="float64"),
+    "long_open_interest_balance_volume": pd.Series(dtype="float64"),
+    "long_open_interest_balance_amount": pd.Series(dtype="float64"),                                                                 
+    "short_open_interest_balance_volume": pd.Series(dtype="float64"),
+    "short_open_interest_balance_amount": pd.Series(dtype="float64")
+})
+
+
+
+for day in dates:
+
+    # Rate limit the requests to avoid going over the limit (this will take 6 hours)
+    time.sleep(2)
+
+
+    try:
+        
+        one_day = api.taiwan_futures_institutional_investors(
+                  start_date=day,
+                  end_date=end_date)
+        
+        print(day)
+        #print(one_day)
+        
+        if one_day.empty:
+            print(f'Skipping {day}')
+            
+            
+        else: 
+           
+            # add the day's results to the overall dataframe
+            taiwan_futures_institutional_investors = pd.concat([taiwan_futures_institutional_investors, one_day], ignore_index=True)
+
+    except:
+        taiwan_futures_institutional_investors.to_csv('data/tsmc/taiwan_futures_institutional_investors.csv', index=False)
+        break
+
 
 taiwan_futures_institutional_investors.to_csv('data/tsmc/taiwan_futures_institutional_investors.csv', index=False)
+
 
 
