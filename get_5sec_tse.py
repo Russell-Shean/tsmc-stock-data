@@ -29,7 +29,7 @@ stock_id = "2330"
 # Define time range (last 10 years)
 end_date = datetime.date.today()
 
-start_date = datetime.date(2016, 1, 1)
+start_date = datetime.date(2020, 12, 6)
 
 
 start_date=start_date.strftime("%Y-%m-%d")
@@ -89,6 +89,8 @@ for day in dates:
     except:
         tsmc_tse.to_csv('data/tsmc/tsmc_tse.csv', index=False)
         break
+
+tsmc_tse.to_csv('data/tsmc/tsmc_tse.csv', index=False)
 
 
 
