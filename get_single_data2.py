@@ -30,7 +30,7 @@ stock_id = "2330"
 end_date = datetime.date.today()
 
 # This data only starts from 2018-06-05 
-start_date = datetime.date(2018, 7, 7)
+start_date = datetime.date(2023, 9, 29)
 
 
 start_date=start_date.strftime("%Y-%m-%d")
@@ -87,7 +87,9 @@ for day in dates:
             # add the day's results to the overall dataframe
             taiwan_futures_institutional_investors = pd.concat([taiwan_futures_institutional_investors, one_day], ignore_index=True)
 
-    except:
+    except Exception as e:
+        print(f'{day}: {e}')
+
         taiwan_futures_institutional_investors.to_csv('data/tsmc/taiwan_futures_institutional_investors.csv', index=False)
         break
 
