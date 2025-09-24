@@ -59,33 +59,36 @@ for day in dates:
     # Rate limit the requests to avoid going over the limit (this will take 6 hours)
     time.sleep(2)
 
-    tse = api.tse(
-   date=day)
-    
-    if tse.empty:
-        print(f'Skipping {day}')
-         
 
-    else: 
-        # make sure that date is recognized as date time
-        tse['date'] = pd.to_datetime(tse['date'])
+    try:
         
-        # create separate date and time columns
-        tse['time'] = tse['date'].dt.time
-        tse['date'] = tse['date'].dt.date
+        tse = api.tse(
+                  date=day)
         
-        # filter tse to only include the tse value at market close
-        market_close_tse = tse[tse['time'] == datetime.time(13, 30, 0)]
-        
-        # rearange columns
-        market_close_tse = market_close_tse[["date", "time", "TAIEX"]]
+        if tse.empty:
+            print(f'Skipping {day}')
+            
+            
+        else: 
+            # make sure that date is recognized as date time
+            tse['date'] = pd.to_datetime(tse['date'])
+            
+            # create separate date and time columns
+            tse['time'] = tse['date'].dt.time
+            tse['date'] = tse['date'].dt.date
+            
+            # filter tse to only include the tse value at market close
+            market_close_tse = tse[tse['time'] == datetime.time(13, 30, 0)]
+            
+            # rearange columns
+            market_close_tse = market_close_tse[["date", "time", "TAIEX"]]
+            
+            # add the day's results to the overall dataframe
+            tsmc_tse = pd.concat([tsmc_tse, market_close_tse], ignore_index=True)
 
-
-        # add the day's results to the overall dataframe
-        tsmc_tse = pd.concat([tsmc_tse, market_close_tse], ignore_index=True)
-        
-
-tsmc_tse.to_csv('data/tsmc/tsmc_tse.csv', index=False)
+    except:
+        tsmc_tse.to_csv('data/tsmc/tsmc_tse.csv', index=False)
+        break
 
 
 
