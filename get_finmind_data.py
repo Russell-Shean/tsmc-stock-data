@@ -110,7 +110,7 @@ taiwan_total_exchange_margin_maintenance.to_csv('data/tsmc/taiwan_total_exchange
 
 # 期貨大額交易人未沖銷部位 	TaiwanFuturesOpenInterestLargeTraders -------------------------------------
 taiwan_futures_open_interest_large_traders = api.taiwan_futures_open_interest_large_traders(
-    futures_id='TJF',
+    futures_id='TX',
     start_date=start_date,
     end_date=end_date,
 )
