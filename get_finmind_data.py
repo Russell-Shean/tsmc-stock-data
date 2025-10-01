@@ -41,7 +41,7 @@ tsm_daily_close  = api.taiwan_stock_daily(
 )
 
 
-tsm_daily_close.to_csv('data/tsmc/daily_closing_price.csv', index=False)
+tsm_daily_close.to_csv('data/tsmc/tsmc_daily_closing_price.csv', index=False)
 
 # Download weekly closing price data ----------------------------------------------------------------------------------------------
 
@@ -51,7 +51,7 @@ taiwan_stock_weekly = api.taiwan_stock_weekly(
     end_date='2020-04-12'
 )
 
-taiwan_stock_weekly.to_csv('data/tsmc/taiwan_stock_weekly.csv', index=False)
+taiwan_stock_weekly.to_csv('data/tsmc/tsmc_weekly_closing_price.csv', index=False)
 
 # Download monthly closing price data ----------------------------------------------------------------------------------------------
 tsm_monthly_close  = api.taiwan_stock_monthly(
@@ -61,7 +61,7 @@ tsm_monthly_close  = api.taiwan_stock_monthly(
 )
 
 
-tsm_monthly_close.to_csv('data/tsmc/monthly_closing_price.csv', index=False)
+tsm_monthly_close.to_csv('data/tsmc/tsmc_monthly_closing_price.csv', index=False)
 
 
 # Monthly revenue -----------------------------------------------------------------------------------------------------------------------
@@ -71,7 +71,7 @@ tsm_monthly_revenue = api.taiwan_stock_month_revenue(
         end_date=end_date
      )
 
-tsm_monthly_revenue.to_csv('data/tsmc/monthly_revenue.csv', index=False)
+tsm_monthly_revenue.to_csv('data/tsmc/tsmc_monthly_revenue.csv', index=False)
 
 
 
