@@ -11,7 +11,7 @@ A collection of scripts for aggregating TSMC data
 )
 
 
-tsm_daily_close.to_csv('data/tsmc/daily_closing_price.csv', index=False) ``` |
+tsm_daily_close.to_csv('data/tsmc/daily_closing_price.csv', index=False) ``` |          
 | 3. [daily_closing_price.csv](https://github.com/Russell-Shean/tsmc-stock-data/blob/main/data/tsmc/daily_closing_price.csv) | -  | -  | -  |
 | 4. [day_trade.csv](https://github.com/Russell-Shean/tsmc-stock-data/blob/main/data/tsmc/day_trade.csv) | -  | -  | -  |
 | 5. [earnings_announcements.html](https://github.com/Russell-Shean/tsmc-stock-data/blob/main/data/tsmc/earnings_announcements.html) | -  | -  | -  |
