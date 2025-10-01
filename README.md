@@ -4,8 +4,8 @@ A collection of scripts for aggregating TSMC data
 # Data in this Repository 
 | Dataset | Description | Link | Code |
 | :------- | :------: | :------: | -------: |
-| 1. [closing_price_monthly.csv](https://github.com/Russell-Shean/tsmc-stock-data/blob/main/data/tsmc/closing_price_monthly.csv) | 股價收盤價 (日) Closing stock price  | https://finmind.github.io/tutor/TaiwanMarket/Technical/#taiwanstockprice  | <pre><code> tsm_daily_close  = api.taiwan_stock_daily( stock_id=stock_id, start_date=start_date, end_date=end_date); tsm_daily_close.to_csv('data/tsmc/daily_closing_price.csv', index=False)</code></pre> |          
-| 3. [daily_closing_price.csv](https://github.com/Russell-Shean/tsmc-stock-data/blob/main/data/tsmc/daily_closing_price.csv) | -  | -  | -  |
+| 1. [closing_price_monthly.csv](https://github.com/Russell-Shean/tsmc-stock-data/blob/main/data/tsmc/closing_price_monthly.csv) | 股價收盤價 (月) Closing stock price | https://finmind.github.io/tutor/TaiwanMarket/Technical/#taiwanstockprice  | <pre><code> tsm_monthly_close  = api.taiwan_stock_monthly(stock_id=stock_id, start_date=start_date, end_date=end_date);tsm_monthly_close.to_csv('data/tsmc/monthly_closing_price.csv', index=False) </code></pre> |          
+| 3. [daily_closing_price.csv](https://github.com/Russell-Shean/tsmc-stock-data/blob/main/data/tsmc/daily_closing_price.csv) | 股價收盤價 (日) Closing stock price  | https://finmind.github.io/tutor/TaiwanMarket/Technical/#taiwanstockprice  | <pre><code> tsm_daily_close  = api.taiwan_stock_daily( stock_id=stock_id, start_date=start_date, end_date=end_date); tsm_daily_close.to_csv('data/tsmc/daily_closing_price.csv', index=False)</code></pre> |
 | 4. [day_trade.csv](https://github.com/Russell-Shean/tsmc-stock-data/blob/main/data/tsmc/day_trade.csv) | -  | -  | -  |
 | 5. [earnings_announcements.html](https://github.com/Russell-Shean/tsmc-stock-data/blob/main/data/tsmc/earnings_announcements.html) | -  | -  | -  |
 | 6. [earnings_announcements2.html](https://github.com/Russell-Shean/tsmc-stock-data/blob/main/data/tsmc/earnings_announcements2.html) | -  | -  | -  |

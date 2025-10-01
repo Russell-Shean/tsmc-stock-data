@@ -185,7 +185,7 @@ taiwan_stock_daily = api.taiwan_stock_daily(
 
 )
 
-taiwan_stock_daily.to_csv('data/tsmc/taiwan_stock_daily.csv', index=False)
+taiwan_stock_daily.to_csv('data/tsmc/taiwan_stock_daily_closing_price.csv', index=False)
 
 
 
@@ -197,7 +197,7 @@ taiwan_stock_weekly = api.taiwan_stock_weekly(
 
 )
 
-taiwan_stock_weekly.to_csv('data/tsmc/taiwan_stock_weekly.csv', index=False)
+taiwan_stock_weekly.to_csv('data/tsmc/taiwan_stock_weekly_closing_price.csv', index=False)
 
 
 
@@ -210,7 +210,7 @@ taiwan_stock_monthly = api.taiwan_stock_monthly(
 
 )
 
-taiwan_stock_monthly.to_csv('data/tsmc/taiwan_stock_monthly.csv', index=False)
+taiwan_stock_monthly.to_csv('data/tsmc/taiwan_stock_monthly_closing_price.csv', index=False)
 
 
 
