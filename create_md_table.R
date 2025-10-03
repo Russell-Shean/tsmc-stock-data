@@ -11,3 +11,6 @@ paste0("| ",
        "](https://github.com/Russell-Shean/tsmc-stock-data/blob/main/data/tsmc/", 
        data_files,
        ") | -  | -  | -  |\n") |> cat()
+
+
+# chafs
