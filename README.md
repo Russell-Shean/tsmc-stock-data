@@ -3,7 +3,7 @@ A collection of scripts for aggregating TSMC data
 
 # Data in this Repository 
 | Dataset | Description | Link | Spreadsheet Link | Code |
-| :------- | :------: | :------: | -------: |
+| :------- | :------: | :------: | :------: | -------: |
 | 1. [GDP_CHG.csv](https://github.com/Russell-Shean/tsmc-stock-data/blob/main/data/tsmc/GDP_CHG.csv) | US GDP - Change, Billions of Dollars  | https://fred.stlouisfed.org/series/GDP  | [Spreadsheet Row](https://docs.google.com/spreadsheets/d/14ejejpMYTp3udQ0Er5-YgOjPwka907MtyHEntYqLVvs/edit?pli=1&gid=0#gid=0&range=46:46) | N/A  |
 | 2. [GDP_PC1.csv](https://github.com/Russell-Shean/tsmc-stock-data/blob/main/data/tsmc/GDP_PC1.csv) | US GDP - Percent Change from 1 year ago  | https://fred.stlouisfed.org/series/GDP  | [Spreadsheet Row](https://docs.google.com/spreadsheets/d/14ejejpMYTp3udQ0Er5-YgOjPwka907MtyHEntYqLVvs/edit?pli=1&gid=0#gid=0&range=46:46) | N/A  |
 | 3. [GDP_PCH.csv](https://github.com/Russell-Shean/tsmc-stock-data/blob/main/data/tsmc/GDP_PCH.csv) | US GDP - Percent Change | https://fred.stlouisfed.org/series/GDP  | [Spreadsheet Row](https://docs.google.com/spreadsheets/d/14ejejpMYTp3udQ0Er5-YgOjPwka907MtyHEntYqLVvs/edit?pli=1&gid=0#gid=0&range=46:46) | N/A  |
