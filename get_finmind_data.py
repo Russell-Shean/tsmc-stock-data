@@ -112,7 +112,7 @@ taiwan_total_exchange_margin_maintenance.to_csv('data/tsmc/taiwan_total_exchange
 taiwan_futures_open_interest_large_traders = api.taiwan_futures_open_interest_large_traders(
     futures_id='TX',
     start_date=start_date,
-    end_date=end_date,
+    end_date=end_date
 )
 
 taiwan_futures_open_interest_large_traders.to_csv('data/tsmc/taiwan_futures_open_interest_large_traders.csv', index=False)
