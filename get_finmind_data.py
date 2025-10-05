@@ -218,7 +218,7 @@ taiwan_stock_monthly.to_csv('data/tsmc/taiwan_stock_monthly_closing_price.csv', 
 taiwan_futures_daily = api.taiwan_futures_daily(
     futures_id='CDF',
     start_date=start_date,
-    end_date=end_date,
+    end_date=end_date
 )
 
 
