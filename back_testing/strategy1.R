@@ -3,11 +3,24 @@ library(lubridate)
 library(dplyr)
 library(tidyr)
 
+# Set Monday as the start of the week
+options(lubridate.week.start = 1)
+
 
 tsmc_daily_closing <- read.csv("data/tsmc/tsmc_daily_closing_price.csv")
 
 tsmc_daily_closing <- tsmc_daily_closing |>
   mutate(date = as.Date(date)) |>
+  
+  # create a week start variable and assign it to the data
+  mutate(week_start = floor_date(date, unit = "week"),
+         week_end = ceiling_date(date, unit = "week")) |>
+  
+  # add a month column
+  mutate(month = month(date),
+         year = year(date),
+         month_year = paste0(month, "_", year)) |>
+  
   arrange(date) |>
 
   
@@ -28,6 +41,16 @@ tsmc_daily_closing <- tsmc_daily_closing |>
   )
 
 
+# Find average monthly price
+avg_monthly_price <- tsmc_daily_closing |>
+                     group_by(month_year) |>
+                     summarise(avg_monthly_price = mean(close))
+
+
+# Add avg monthly price back
+tsmc_daily_closing <- tsmc_daily_closing |> 
+                      left_join(avg_monthly_price)
+
 # After we've calculated averages for trading days
 # we can fill in missing values
 
@@ -37,7 +60,7 @@ tsmc_daily_closing <- tsmc_daily_closing |>
 # the market was open last (ie. friday)
 
 # This adds in missing dates
-tsmc_daily_closing <- tsmc_daily_closing |>
+tsmc_daily_closing_filled <- tsmc_daily_closing |>
                          tidyr::complete(date = seq(min(date), 
                                                     max(date),
                                                     by = "1 day")) |>
@@ -55,7 +78,7 @@ tsmc_daily_closing <- tsmc_daily_closing |>
          row_number = row_number())
 
 # find the tenth of each month
-tenth_of_month <- tsmc_daily_closing |> 
+tenth_of_month <- tsmc_daily_closing_filled |> 
                   filter(day(date) == 10) |>
                   arrange(date) |> 
                   mutate(one_month_later = NA,
@@ -64,14 +87,14 @@ tenth_of_month <- tsmc_daily_closing |>
 
 
 # find fifthenth of each month
-fifteenth_of_month <- tsmc_daily_closing |> 
+fifteenth_of_month <- tsmc_daily_closing_filled |> 
   filter(day(date) == 15)|>
   arrange(date)
 
 
 for(i in 1:nrow(tenth_of_month)){
   
-  ith_date <- tenth_of_month[i,"date"]
+  ith_date <- tenth_of_month[i,] |> pull(date)
   
   # find the next three fiftenths of the month
   next_3_dates <- fifteenth_of_month |>
@@ -79,8 +102,24 @@ for(i in 1:nrow(tenth_of_month)){
                   arrange(date) |>
                   slice_head(n=3)
   
-  tenth_of_month[i,"one_month_later"] <- next_3_dates[1,"close"]
-  tenth_of_month[i,"two_months_later"] <- next_3_dates[2,"close"]
-  tenth_of_month[i,"three_months_later"] <- next_3_dates[3,"close"]
+  tenth_of_month[i,"one_month_later_15th"] <- next_3_dates[1,"close"]
+  tenth_of_month[i,"one_month_later_avg"] <- next_3_dates[1,"close"]
+  
+  tenth_of_month[i,"two_months_later_15th"] <- next_3_dates[2,"close"]
+  tenth_of_month[i,"two_months_later_avg"] <- next_3_dates[1,"close"]
+  
+  
+  tenth_of_month[i,"three_months_later_15th"] <- next_3_dates[3,"close"]
   
 }
+
+
+# Calculate percent return
+tenth_of_month <- tenth_of_month |>
+                  mutate(first_month_return = (one_month_later_15th - close) / close * 100,
+                         second_month_return = (two_months_later_15th - close) / close * 100,
+                         third_month_return = (three_months_later_15th - close) / close * 100)
+
+
+write.csv(tenth_of_month,
+          "data/back_testing/strategy1.csv")
