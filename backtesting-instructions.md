@@ -6,7 +6,7 @@ Is the return of our strategy better than average return
 
 revenue is reported on 10th except on holiday
 
-average_price_A = average to the 5 trading days starting on the 11th
+average_price_A = average of the 5 trading days starting on the 11th
 
 price_b
 
