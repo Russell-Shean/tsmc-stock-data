@@ -33,6 +33,8 @@ start_date = datetime.date(2016, 1, 1)
 start_date=start_date.strftime("%Y-%m-%d")
 end_date=end_date.strftime("%Y-%m-%d")
 
+
+'''
 # Download daily closing price data ----------------------------------------------------------------------------------------------
 tsm_daily_close  = api.taiwan_stock_daily(
                   stock_id=stock_id,
@@ -330,3 +332,22 @@ taiwan_stock_monthly_semiconductors = api.taiwan_stock_monthly(
 
 taiwan_stock_monthly_semiconductors.to_csv('data/tsmc/taiwan_stock_monthly_semiconductors.csv', index=False)
 
+
+'''
+
+# Strategy 4 data
+
+
+
+#tsmc = dl.taiwan_stock_daily(stock_id="2330", start_date=start_date )
+taiwan_stock_total_index = api.taiwan_stock_market_value_weight(
+    stock_id=stock_id,
+    start_date=start_date,
+    end_date=end_date
+)
+
+
+
+
+
+taiwan_stock_total_index.to_csv('data/tsmc/taiwan_stock_index_daily_closing.csv', index=False)
