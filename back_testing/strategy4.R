@@ -1,8 +1,11 @@
 library(ggplot2)
+library(stocks)
 
-
-tsmc_daily_closing |> mutate(alltime_max = cummax(close),
-                             alltime_min = cummin(close)) |> View()
+strategy4 <- 
+  tsmc_daily_closing |> 
+  mutate(alltime_max = cummax(close),
+                             alltime_min = cummin(close)) |> 
+  mutate(drawdown = mdd(close))
 
 
 

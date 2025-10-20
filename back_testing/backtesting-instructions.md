@@ -31,6 +31,9 @@ average price may
 average price june
 
 
+add total average for the 3 months, calculate return 
+
+
 compare to 15th of each month
 
 # Strategy 2 --------------------------------------------------------------------------------
@@ -44,6 +47,9 @@ compare to average price from 9/29 to 10/3
 compare thursday price to avg, min and max 
 
 thursday price, week max, meek min, week avg, dates in range
+
+skip chinese new year
+go back 1 to 2 days if thursday is a holiday
 
 # strategy 3 ---------------------------------------------------------------------------------
 Calculate what percentage tsmc contributes to total market cap of taiwan stock exchange
