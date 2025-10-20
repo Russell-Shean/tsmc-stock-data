@@ -116,7 +116,7 @@ for(i in 1:nrow(tenth_of_month)){
 
 
 # Calculate percent return
-tenth_of_month <- tenth_of_month |>
+strategy1 <- tenth_of_month |>
                   mutate(first_month_return = (one_month_later_15th - close) / close * 100,
                          second_month_return = (two_months_later_15th - close) / close * 100,
                          third_month_return = (three_months_later_15th - close) / close * 100) |>
@@ -125,6 +125,7 @@ tenth_of_month <- tenth_of_month |>
          week_start,
          week_end,
          close,
+         avg_monthly_price,
          one_month_later_15th, 
          two_months_later_15th, 
          three_months_later_15th, 
@@ -137,5 +138,5 @@ tenth_of_month <- tenth_of_month |>
 
 
 
-write.csv(tenth_of_month,
+write.csv(strategy1,
           "data/back_testing/strategy1.csv")
