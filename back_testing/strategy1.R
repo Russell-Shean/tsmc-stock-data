@@ -101,13 +101,13 @@ for(i in 1:nrow(tenth_of_month)){
   next_3_dates <- fifteenth_of_month |>
                   filter(date > ith_date) |>
                   arrange(date) |>
-                  slice_head(n=3)
+                  slice(2:4)
   
   tenth_of_month[i,"one_month_later_15th"] <- next_3_dates[1,"close"]
-  tenth_of_month[i,"one_month_later_avg"] <- next_3_dates[1,"close"]
+  #tenth_of_month[i,"one_month_later_avg"] <- next_3_dates[1,"close"]
   
   tenth_of_month[i,"two_months_later_15th"] <- next_3_dates[2,"close"]
-  tenth_of_month[i,"two_months_later_avg"] <- next_3_dates[1,"close"]
+  #tenth_of_month[i,"two_months_later_avg"] <- next_3_dates[1,"close"]
   
   
   tenth_of_month[i,"three_months_later_15th"] <- next_3_dates[3,"close"]
@@ -119,7 +119,22 @@ for(i in 1:nrow(tenth_of_month)){
 tenth_of_month <- tenth_of_month |>
                   mutate(first_month_return = (one_month_later_15th - close) / close * 100,
                          second_month_return = (two_months_later_15th - close) / close * 100,
-                         third_month_return = (three_months_later_15th - close) / close * 100)
+                         third_month_return = (three_months_later_15th - close) / close * 100) |>
+  select(date,
+         day_of_week,
+         week_start,
+         week_end,
+         close,
+         one_month_later_15th, 
+         two_months_later_15th, 
+         three_months_later_15th, 
+         first_month_return, 
+         second_month_return, 
+         third_month_return
+         
+         )
+
+
 
 
 write.csv(tenth_of_month,
