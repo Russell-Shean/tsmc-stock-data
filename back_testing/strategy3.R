@@ -97,20 +97,20 @@ pullbacks <- find_pullbacks_after_new_high(tsmc_daily_closing,
 
 # separate into to dfs for merging
 peaks <- pullbacks |>
-  select(peak_date,
-         peak_price)
+         select(peak_date,
+                peak_price)
 
 
 troughs <- pullbacks |>
-  select(trough_date,
-         trough_price,
-         retracement_pct)
+            select(trough_date,
+                   trough_price,
+                   retracement_pct)
 
 
 # Reattach pullbacks onto strategy 4
 strategy4 <- tsmc_daily_closing |>
-  left_join(peaks, by = c("date" = "peak_date")) |>
-  left_join(troughs, by = c("date" = "trough_date"))
+             left_join(peaks, by = c("date" = "peak_date")) |>
+             left_join(troughs, by = c("date" = "trough_date"))
 
 # save results
 write.csv(pullbacks,
@@ -121,7 +121,7 @@ write.csv(pullbacks,
 
 
 # create graph
-ggplot2::ggplot() +
+  ggplot2::ggplot() +
   geom_line(data = strategy4,
             aes(x=date, 
                 y=close, 
@@ -132,11 +132,11 @@ ggplot2::ggplot() +
              aes(x=date, 
                  y=close),
              col = "green") +
-  geom_point(data = filter(strategy4,
-                           !is.na(trough_price)),
-             aes(x=date, 
-                 y=close),
-             col = "red") +
+    geom_point(data = filter(strategy4,
+                             !is.na(trough_price)),
+               aes(x=date, 
+                   y=close),
+               col = "red") +
   # geom_point(alpha = 0.3) 
   labs(title = "Daily Closing Price of TSMC - 2016 to Today\nGreen dots are peaks\nRed dots are troughs",
        x = "Date",
