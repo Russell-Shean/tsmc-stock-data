@@ -23,8 +23,8 @@ strategy2 <- tsmc_daily_closing |>
              week_avg = mean(close)) |>
    left_join(only_thursdays) |>
   left_join(only_fridays) |>
-  mutate(week_avg_return_rate = (thursday_close - week_avg) / thursday_close,
-         thurs_fri_return_rate = (thursday_close - friday_close) / thursday_close ) #|>
+  mutate(week_avg_return_rate = (week_avg - thursday_close) / thursday_close,
+         fri_thurs_return_rate = (friday_close - thursday_close) / thursday_close ) #|>
   #mutate(positive_return = ifelse(return_rate > 0,
    #                               "Yes", 
    #                               "No"))

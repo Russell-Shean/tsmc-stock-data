@@ -2,8 +2,8 @@ library(lubridate)
 
 
 # Load total stock market price data
-taiex_daily <- read.csv('data/tsmc/taiex_overal_daily_closing_price.csv')|>
-  mutate(date = as.Date(date)) |>
+taiex_daily <- read.csv('data/tsmc/taiex_overal_daily_closing_price.csv')#|>
+ # mutate(date = as.Date(date)) |>
   
   # add a month column
   mutate(month = month(date),
@@ -13,7 +13,7 @@ taiex_daily <- read.csv('data/tsmc/taiex_overal_daily_closing_price.csv')|>
   summarise(index_avg_price = mean(price))
 
 # Load weights data
-tsmc_weights <- read.csv("data/tsmc/tsmc_index_weight.csv") |>
+tsmc_weights <- read.csv("data/tsmc/tsmc_index_weight.csv") #|>
                 mutate(date = as.Date(date)) |>
   
   # add a month column
@@ -46,6 +46,9 @@ strategy3 <-
   # Then fill up?
   fill(avg_weight, .direction = "up") |>
   
+  # convert weight to percent
+  
+  
   # calculate other things 
   mutate(
     
@@ -60,6 +63,10 @@ strategy3 <-
     share_of_index_return = (contribution_tsmc / return_index) * 100
   )
 
+
+# filter out data that is unreliable
+strategy3_filtered <- strategy3 |>
+                      filter(date > "2024-10-01")
 
 # save data
 write.csv(strategy3, "data/back_testing/strategy3.csv", row.names = FALSE)

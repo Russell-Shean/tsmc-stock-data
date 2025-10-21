@@ -116,15 +116,17 @@ for(i in 1:nrow(tenth_of_month)){
 
 
 # Calculate percent return
+# calculate return using weekly avg as baseline instead of price on tenth
 strategy1 <- tenth_of_month |>
-                  mutate(first_month_return = (one_month_later_15th - close) / close * 100,
-                         second_month_return = (two_months_later_15th - close) / close * 100,
-                         third_month_return = (three_months_later_15th - close) / close * 100) |>
+                  mutate(first_month_return = (one_month_later_15th - avg_closing_next5) / avg_closing_next5 * 100,
+                         second_month_return = (two_months_later_15th - avg_closing_next5) / avg_closing_next5 * 100,
+                         third_month_return = (three_months_later_15th - avg_closing_next5) / avg_closing_next5 * 100) |>
   select(date,
          day_of_week,
          week_start,
          week_end,
          close,
+         avg_closing_next5,
          avg_monthly_price,
          one_month_later_15th, 
          two_months_later_15th, 
