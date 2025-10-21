@@ -2,6 +2,8 @@
 
 library(ggplot2)
 library(dplyr)
+library(purrr)
+library(ggrepel)
 
 # N = lookback window for rolling high
 # d = minimum drawdown threshold
@@ -101,22 +103,113 @@ peaks <- pullbacks |>
          peak_price)
 
 
-troughs <- pullbacks |>
-  select(trough_date,
-         trough_price,
-         retracement_pct)
+#troughs <- pullbacks |>
+ # select(trough_date,
+    #     trough_price,
+     #    retracement_pct)
 
 
 # Reattach pullbacks onto strategy 4
 strategy4 <- tsmc_daily_closing |>
   left_join(peaks, by = c("date" = "peak_date")) |>
-  left_join(troughs, by = c("date" = "trough_date"))
+#  left_join(troughs, by = c("date" = "trough_date"))
+  arrange(date)
+  
+# create date pairs
+highs_date_pairs <- data.frame(first_high = lag(peaks$peak_date),
+                               second_high = peaks$peak_date) |>
+   
+  # Filter out first entry (which doesn't have a date before it)
+  filter(!is.na(first_high))
 
-# save results
-write.csv(pullbacks,
+# loop through the high pairs
+# find the lowest value between the two pairs
+
+all_local_mins <- data.frame()
+
+for(i in 1:nrow(highs_date_pairs)){
+  
+  print(i)
+  
+  local_min <- strategy4 |>
+    
+    # filter to find the section between the two highs 
+    filter(date >= highs_date_pairs[i, "first_high"] & 
+           date <= highs_date_pairs[i, "second_high"]) |>
+    
+    # filter to find the lowest closing price between the two highs
+    filter(close == min(close)) |>
+    
+    select(date,
+           trough_price = close)
+  
+  print(local_min)
+  
+  
+  
+  # Collect the result
+  all_local_mins <- bind_rows(all_local_mins, local_min)
+ 
+
+}
+
+# attach the local min back to the dataframe
+strategy4 <- strategy4 |>
+  left_join(all_local_mins)
+
+
+
+# re-create a pullbacks dataframe
+pullbacks <- strategy4 |>
+             filter(!is.na(peak_price) |
+                    !is.na(trough_price)) |>
+
+             # select only what we need 
+             select(date,
+                    peak_price,
+                    trough_price)
+
+
+# stuff from chatgpt, too lazy to clean lol
+# Step 1: Separate peaks and troughs
+peaks <- pullbacks %>%
+  filter(!is.na(peak_price)) %>%
+  select(peak_date = date, peak_price)
+
+troughs <- pullbacks %>%
+  filter(!is.na(trough_price)) %>%
+  select(trough_date = date, trough_price)
+
+# Step 2: Pair each peak with the next available trough
+# (Assumes every peak is followed by a trough)
+n_pairs <- min(nrow(peaks), nrow(troughs))
+
+pullbacks2 <- tibble(
+  peak_date   = peaks$peak_date[1:n_pairs],
+  peak_price  = peaks$peak_price[1:n_pairs],
+  trough_date = troughs$trough_date[1:n_pairs],
+  trough_price = troughs$trough_price[1:n_pairs]
+) |>
+  # calculate retracement percent
+  mutate(retracement_pct = round((peak_price - trough_price) / peak_price * 100, 2)) 
+
+
+# add retracement onto strategy4 df
+retracements <- pullbacks2 |>
+                select(date = trough_date,
+                       retracement_pct)
+
+
+strategy4 <- strategy4 |> 
+             left_join(retracements)
+
+
+
+# save results 
+write.csv(pullbacks2,
           "data/back_testing/strategy4_pullbacks.csv")
 
-write.csv(pullbacks,
+write.csv(strategy4,
           "data/back_testing/strategy4_full_data.csv")
 
 
@@ -137,10 +230,28 @@ ggplot2::ggplot() +
              aes(x=date, 
                  y=close),
              col = "red") +
+  
+  # label retracement percentages
+  geom_text_repel(
+    data = filter(strategy4, !is.na(trough_price)),
+    aes(x = date, y = close, label = paste0(retracement_pct, "%")),
+    size = 3,         # adjust as needed
+    color = "black",  # optional
+    box.padding = 0.5,
+    #point.padding = 75,
+    segment.color = "red",
+    segment.alpha = 0.5,
+    segment.linetype = "dashed",
+    nudge_y = 400,
+    max.overlaps = Inf,
+    min.segment.length = 0
+  ) +
+  
+
   # geom_point(alpha = 0.3) 
   labs(title = "Daily Closing Price of TSMC - 2016 to Today\nGreen dots are peaks\nRed dots are troughs",
        x = "Date",
-       Y = "Daily Closing Price")
+       y = "Daily Closing Price")
 
 
 
