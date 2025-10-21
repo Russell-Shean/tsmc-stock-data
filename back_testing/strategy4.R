@@ -209,6 +209,7 @@ strategy4 <- strategy4 |>
 write.csv(pullbacks2,
           "data/back_testing/strategy4_pullbacks.csv")
 
+
 write.csv(strategy4,
           "data/back_testing/strategy4_full_data.csv")
 
