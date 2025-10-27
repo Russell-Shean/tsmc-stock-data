@@ -163,6 +163,9 @@ strategy4 <- strategy4 |>
 pullbacks <- strategy4 |>
              filter(!is.na(peak_price) |
                     !is.na(trough_price)) |>
+  
+            # Filter out a double dip
+            filter(date != "2017-07-07") |>
 
              # select only what we need 
              select(date,
@@ -201,7 +204,7 @@ retracements <- pullbacks2 |>
 
 
 strategy4 <- strategy4 |> 
-             left_join(retracements)
+             left_join(retracements) 
 
 
 
@@ -234,7 +237,7 @@ ggplot2::ggplot() +
   
   # label retracement percentages
   geom_text_repel(
-    data = filter(strategy4, !is.na(trough_price)),
+    data = filter(strategy4, !is.na(trough_price) & date != "2017-07-07"),
     aes(x = date, y = close, label = paste0(retracement_pct, "%")),
     size = 3,         # adjust as needed
     color = "black",  # optional
