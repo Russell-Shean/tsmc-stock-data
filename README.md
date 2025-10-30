@@ -19,7 +19,7 @@ A collection of scripts for aggregating TSMC data
 6. Return to the open  command prompt window and run the following:
    ```shell
    # create a virtual environment
-   python -m venv .venv
+   python -m venv venv
 
    # for windows
    venv\Scripts\activate.bat
