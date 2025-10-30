@@ -1,6 +1,41 @@
 # tsmc-stock-data
 A collection of scripts for aggregating TSMC data
 
+# How to run this yourself
+1. Make sure (https://www.python.org/downloads/)[python] and (https://git-scm.com/install/)[git] are installed on your computer.
+2. Open a command prompt and run the following:
+   ```shell
+   git clone https://github.com/Russell-Shean/tsmc-stock-data.git
+   cd tsmc-stock-data
+   ```
+3. Keep the command prompt window open and navigate to the newly cloned folder
+4. Move a copy of the .env file into the folder. (Provided separately because it contains credentials). 
+5. Open the file `finmind_individual_stock.py` and edit lines 25 and 26 for the stock you want. For example:
+   ```python
+   # Define stock ID
+   stock_id = "2354"
+   stock_name = "Foxconn"
+   ```
+6. Return to the open  command prompt window and run the following:
+   ```shell
+   # create a virtual environment
+   python -m venv .venv
+
+   # for windows
+   venv\Scripts\activate.bat
+
+   # for linux or Mac (remove hashtag first)
+   # source venv/bin/activate
+
+   # install modules
+   pip install -r requirements.txt
+
+   # run the code
+   python finmind_individual_stock.py
+   ```
+
+
+
 # Data in this Repository 
 | Dataset | Description | Link | Spreadsheet Link | Code |
 | :------- | :------: | :------: | :------: | -------: |
