@@ -143,7 +143,7 @@ for(i in 1:nrow(highs_date_pairs)){
     select(date,
            trough_price = close)
   
-  print(local_min)
+  #print(local_min)
   
   
   
@@ -194,13 +194,17 @@ pullbacks2 <- tibble(
   trough_price = troughs$trough_price[1:n_pairs]
 ) |>
   # calculate retracement percent
-  mutate(retracement_pct = round((peak_price - trough_price) / peak_price * 100, 2)) 
+  mutate(retracement_pct = round((peak_price - trough_price) / peak_price * 100, 2) * -1) |> 
+  
+  # calculate trough to price increase
+  mutate(trough_peak_increase = round((lead(peak_price) - trough_price) / trough_price * 100, 2) )
 
 
 # add retracement onto strategy4 df
 retracements <- pullbacks2 |>
                 select(date = trough_date,
-                       retracement_pct)
+                       retracement_pct,
+                       trough_peak_increase)
 
 
 strategy4 <- strategy4 |> 
