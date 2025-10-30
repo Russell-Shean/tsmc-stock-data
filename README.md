@@ -2,7 +2,7 @@
 A collection of scripts for aggregating TSMC data
 
 # How to run this yourself
-1. Make sure (https://www.python.org/downloads/)[python] and (https://git-scm.com/install/)[git] are installed on your computer.
+1. Make sure [python](https://www.python.org/downloads/) and [git](https://git-scm.com/install/) are installed on your computer.
 2. Open a command prompt and run the following:
    ```shell
    git clone https://github.com/Russell-Shean/tsmc-stock-data.git
